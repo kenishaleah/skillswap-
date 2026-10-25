@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillSwap | Exchange Your Skills</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6f2;
+      color: #20372c;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #173b2b;
+      color: white;
+      padding: 22px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    header h1 {
+      font-size: 26px;
+    }
+
+    header span {
+      color: #b8dfb7;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 18px;
+    }
+
+    .hero {
+      padding: 65px 8%;
+      background: #e4eddf;
+    }
+
+    .hero h2 {
+      font-size: clamp(30px, 5vw, 48px);
+      max-width: 650px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      max-width: 560px;
+      color: #506557;
+      margin-bottom: 24px;
+    }
+
+    .button {
+      display: inline-block;
+      border: none;
+      border-radius: 7px;
+      padding: 12px 20px;
+      background: #24543a;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .button:hover {
+      background: #34734e;
+    }
+
+    main {
+      padding: 42px 8%;
+    }
+
+    .section-heading {
+      margin-bottom: 20px;
+    }
+
+    .search {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #cbd6ca;
+      border-radius: 7px;
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: white;
+      border: 1px solid #e0e6dd;
+      border-radius: 12px;
+      padding: 23px;
+      box-shadow: 0 4px 14px #1939230b;
+    }
+
+    .skill-card .category {
+      color: #39764e;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .skill-card h3 {
+      margin: 9px 0;
+    }
+
+    .skill-card p {
+      color: #667568;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .credits {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 5px 10px;
+      background: #e6f1e4;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    .form-section {
+      margin-top: 50px;
+      padding: 28px;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e0e6dd;
+    }
+
+    .form-section h2 {
+      margin-bottom: 8px;
+    }
+
+    .form-section > p {
+      color: #667568;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd6ca;
+      border-radius: 6px;
+      font: inherit;
+      background: white;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .form-section .button {
+      margin-top: 18px;
+    }
+
+    #message {
+      margin-top: 14px;
+      color: #24543a;
+    }
+
+    footer {
+      margin-top: 45px;
+      padding: 24px 8%;
+      background: #173b2b;
+      color: #e2eee3;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 20px 6%;
+      }
+
+      nav a {
+        margin-left: 0;
+        margin-right: 12px;
+      }
+
+      .hero, main {
+        padding: 35px 6%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Skill<span>Swap.</span></h1>
+    <nav>
+      <a href="#explore">Explore</a>
+      <a href="#add-skill">Share a Skill</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Learn something new. Teach what you love.</h2>
+    <p>
+      Connect with people, exchange knowledge, and build
+      useful skills together. Everyone has something to teach.
+    </p>
+    <a href="#explore" class="button">Explore Skills</a>
+  </section>
+
+  <main>
+    <section id="explore">
+      <div class="section-heading">
+        <h2>Explore Skills</h2>
+        <p>Find something new to learn from the community.</p>
+      </div>
+
+      <input
+        type="search"
+        id="searchInput"
+        class="search"
+        placeholder="Search design, coding, photography..."
+        aria-label="Search skills"
+      >
+
+      <div id="skillGrid" class="skill-grid"></div>
+    </section>
+
+    <section id="add-skill" class="form-section">
+      <h2>Share Your Skill</h2>
+      <p>Add a skill that you would like to teach others.</p>
+
+      <form id="skillForm">
+        <label for="skillName">Skill name</label>
+        <input id="skillName" required
+          placeholder="e.g. Graphic Design">
+
+        <label for="teacherName">Your name</label>
+        <input id="teacherName" required
+          placeholder="Enter your name">
+
+        <label for="category">Category</label>
+        <select id="category" required>
+          <option value="">Select a category</option>
+          <option>Technology</option>
+          <option>Design</option>
+          <option>Creative Arts</option>
+          <option>Communication</option>
+          <option>Other</option>
+        </select>
+
+        <label for="description">Description</label>
+        <textarea id="description" required
+          placeholder="What can you teach?"></textarea>
+
+        <button class="button" type="submit">
+          Add Skill
+        </button>
+      </form>
+
+      <p id="message" role="status"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>SkillSwap — Share knowledge. Grow together.</p>
+    <p>Mini project built with HTML, CSS and JavaScript.</p>
+  </footer>
+
+  <script>
+    const skills = [
+      {
+        name: "UI/UX Design",
+        teacher: "Aisha",
+        category: "Design",
+        description: "Learn interface design, wireframes and Figma.",
+        credits: 10
+      },
+      {
+        name: "Web Development",
+        teacher: "Rahul",
+        category: "Technology",
+        description: "Explore HTML, CSS and beginner JavaScript.",
+        credits: 15
+      },
+      {
+        name: "Photography",
+        teacher: "Maya",
+        category: "Creative Arts",
+        description: "Learn composition, lighting and editing.",
+        credits: 8
+      },
+      {
+        name: "Public Speaking",
+        teacher: "Arjun",
+        category: "Communication",
+        description: "Build confidence and presentation skills.",
+        credits: 10
+      }
+    ];
+
+    const grid = document.getElementById("skillGrid");
+    const searchInput = document.getElementById("searchInput");
+    const form = document.getElementById("skillForm");
+    const message = document.getElementById("message");
+
+    function renderSkills() {
+      const query = searchInput.value.toLowerCase().trim();
+
+      const filteredSkills = skills.filter(skill =>
+        skill.name.toLowerCase().includes(query) ||
+        skill.teacher.toLowerCase().includes(query) ||
+        skill.category.toLowerCase().includes(query) ||
+        skill.description.toLowerCase().includes(query)
+      );
+
+      grid.replaceChildren();
+
+      if (filteredSkills.length === 0) {
+        const empty = document.createElement("p");
+        empty.textContent = "No matching skills found. Try another search.";
+        grid.appendChild(empty);
+        return;
+      }
+
+      filteredSkills.forEach(skill => {
+        const card = document.createElement("article");
+        card.className = "skill-card";
+
+        const category = document.createElement("span");
+        category.className = "category";
+        category.textContent = skill.category;
+
+        const title = document.createElement("h3");
+        title.textContent = skill.name;
+
+        const teacher = document.createElement("p");
+        teacher.textContent = "Taught by " + skill.teacher;
+
+        const description = document.createElement("p");
+        description.textContent = skill.description;
+
+        const credits = document.createElement("span");
+        credits.className = "credits";
+        credits.textContent = skill.credits + " learning credits";
+
+        card.append(category, title, teacher, description, credits);
+        grid.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener("input", renderSkills);
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const skill = {
+        name: document.getElementById("skillName").value.trim(),
+        teacher: document.getElementById("teacherName").value.trim(),
+        category: document.getElementById("category").value,
+        description: document.getElementById("description").value.trim(),
+        credits: 10
+      };
+
+      if (!skill.name || !skill.teacher ||
+          !skill.category || !skill.description) {
+        message.textContent = "Please complete all fields.";
+        return;
+      }
+
+      skills.unshift(skill);
+      form.reset();
+      searchInput.value = "";
+      renderSkills();
+
+      message.textContent = "Your skill has been added successfully!";
+      document.getElementById("explore").scrollIntoView({
+        behavior: "smooth"
+      });
+    });
+
+    renderSkills();
+  </script>
+</body>
+</html>
